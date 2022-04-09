@@ -1,0 +1,12 @@
+{
+    "name": "dufou/commerce",
+    "authors": [
+        {
+            "name": "rémi",
+            "email": "dufour.remi59@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.1"
+    }
+}
