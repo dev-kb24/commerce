@@ -1,5 +1,5 @@
 <?php
-
+use JSON;
 class Dispatcher {
     private $data = [];
     private $acceptAction = ['init'];
@@ -10,7 +10,7 @@ class Dispatcher {
             $this->action = $action;
             $this->loadRouter();
         }else{
-            echo JSON::json(Errors::getError(1));
+            $this->render(Errors::getError(1));
         }
     }
 
