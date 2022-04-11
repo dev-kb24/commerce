@@ -36,7 +36,7 @@ class Dispatcher{
         $pathController = "controllers/".$nameController.".class.php";
         if(file_exists($pathController)){
             require_once $pathController;
-            $this->controller = new $nameController($this->getData());
+            $this->controller = new $nameController($this->getData(),$this->getPath());
             $method = $this->action;
             if(method_exists($this->controller,$method)){
                $this->send = $this->controller->$method();
@@ -46,6 +46,10 @@ class Dispatcher{
         }else{
             $this->send = Errors::getError(2);
         }
+    }
+
+    public function getPath(){
+        return $this->path;
     }
 
     public function getData(){

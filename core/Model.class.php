@@ -1,21 +1,25 @@
 <?php
 
-class Model extends PDO{
+class Model{
 
-   protected $db;
-   protected $orm;
-   protected $model;
+   public $db;
    
-   function __construct($cnx,$orm,$model){
+   function __construct($cnx){
         $this->initPDO($cnx);
-        $this->orm = $orm;
-        $this->model = $model;
    }
 
    private function initPDO($case){
       switch ($case) {
          case 1:
-            $this->db = new PDO('mysql:dbname=commerce;host=127.0.0.1','root','');
+            try
+            {
+               $this->db = new PDO('mysql:host=localhost;dbname=commerce;charset=utf8','root','');
+            }
+            catch(Exception $e)
+            {
+                  die('Erreur : '.$e->getMessage());
+            }
+            
             break;
          
          default:

@@ -5,15 +5,21 @@ class Controller {
     protected $data;
     protected $send;
     protected $model;
+    protected $path;
 
-    function __construct($data){
+    function __construct($data,$path){
         $this->data = $data;
+        $this->path = $path;
     }
 
     public function loadModel(){
-        $mod = ucfirst($this->action)."Model.class.php";
-        require_once $mod;
-        $this->model = new $mod();
+        $nameModel = ucfirst($this->path)."Model";
+        $pathModel = "models/".$nameModel.".class.php";
+        if(file_exists($pathModel)){
+            require_once $pathModel;
+            $this->model = new $nameModel(1);
+        }
+        
     }
 
     public function getSend(){
