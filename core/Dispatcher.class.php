@@ -1,11 +1,16 @@
 <?php
-class Dispatcher extends Router{
-    protected $controller;
-    function __construct(){
+class Dispatcher{
+    private $controller;
+    private $action;
+    private $path;
+    private $data;
+    private $send;
+    function __construct($data,$action,$path){
+        $this->data = $data;
         if ($this->checkData()) {
             $this->loadController();
         }else{
-            $this->render(Errors::getError(1));
+            $this->send = Errors::getError(1);
         }
     }
 
@@ -27,14 +32,17 @@ class Dispatcher extends Router{
             $this->controller = new $nameController($this->getData());
             $method = $this->action;
             if(method_exists($this->controller,$method)){
-                $this->controller->$method();
-                $this->render($this->controller->getSend());
+               $this->send = $this->controller->$method();
             }else{
-                $this->render(Errors::getError(1));
+                $this->send = Errors::getError(1);
             }
         }else{
-            $this->render(Errors::getError(1));
+            $this->send = Errors::getError(1);
         }
+    }
+
+    public function getSend(){
+        return $this->send;
     }
 
 }

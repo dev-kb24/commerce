@@ -1,2 +1,2 @@
-RewriteEngine On 
-RewriteRule ^(.+)$ index.php [R=301,L] 
+RewriteEngine On
+RewriteRule ^(.*)$ index.php [L,QSA]

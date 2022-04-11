@@ -1,33 +1,36 @@
 <?php
 
 class Router {
-    protected $action;
-    protected $path;
-    protected $data;
+    private $action;
+    private $path;
+    private $data;
+    public $dispatcher;
 
-    function __construct(){
-       $this->parseURL();
-    }
-
-    private function parseURL(){
+    public function parseURL(){
         $url = array_filter(explode('/',$_SERVER['REQUEST_URI']));
-        $this->path = $url[0];
-        if(isset($url[1])){
-            $this->action = $url[1];
+        $this->path = $url[3];
+        if(isset($url[4])){
+            $this->action = $url[4];
         }else{
             $this->action = "index";
         }
         switch($_SERVER['REQUEST_METHOD']){
             case 'GET':
-                $this->data = $_GET['data'];
+                if(isset($_GET['data'])){
+                    $this->data = $_GET['data'];
+                }
                 break;
             case 'POST':
-                $this->data = $_POST['data'];
+                if (isset($_POST['data'])) {
+                    $this->data = $_POST['data'];
+                }
                 break;
         }
+        $this->dispatcher = new Dispatcher($this->getData(),$this->getAction());
+        $this->render($this->dispatcher->getSend());
     }
 
-    protected function render($array){
+    private function render($array){
         echo json_encode($array);
     }
 
