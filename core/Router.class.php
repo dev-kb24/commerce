@@ -1,21 +1,41 @@
 <?php
-use JSON;
+
 class Router {
-    public function get($action,$data){
-        $cont = ucfirst($action)."Controller.class.php";
-        require_once $cont;
-        $controller = new $cont($data);
-        if (method_exists($controller,'render')) {
-            $controller->render();
+    protected $action;
+    protected $path;
+    protected $data;
+
+    function __construct(){
+       $this->parseURL();
+    }
+
+    private function parseURL(){
+        $url = array_filter(explode('/',$_SERVER['REQUEST_URI']));
+        $this->path = $url[0];
+        if(isset($url[1])){
+            $this->action = $url[1];
+        }else{
+            $this->action = "index";
+        }
+        switch($_SERVER['REQUEST_METHOD']){
+            case 'GET':
+                $this->data = $_GET['data'];
+                break;
+            case 'POST':
+                $this->data = $_POST['data'];
+                break;
         }
     }
 
-    public function post($action,$data){
-        $cont = ucfirst($action)."Controller.class.php";
-        require_once $cont;
-        $controller = new $cont($data);
-        if (method_exists($controller,'render')) {
-            $this->render($controller->render());
-        }
+    protected function render($array){
+        echo json_encode($array);
+    }
+
+    public function getData(){
+        return $this->data;
+    }
+
+    public function getAction(){
+        return $this->action;
     }
 }
