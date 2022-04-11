@@ -26,7 +26,7 @@ class Router {
                 }
                 break;
         }
-        $this->dispatcher = new Dispatcher($this->getData(),$this->getAction());
+        $this->dispatcher = new Dispatcher($this->getData(),$this->getAction(),$this->getPath());
         $this->render($this->dispatcher->getSend());
     }
 
@@ -36,6 +36,10 @@ class Router {
 
     public function getData(){
         return $this->data;
+    }
+
+    public function getPath(){
+        return $this->path;
     }
 
     public function getAction(){

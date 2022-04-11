@@ -7,14 +7,21 @@ class Dispatcher{
     private $send;
     function __construct($data,$action,$path){
         $this->data = $data;
-        if ($this->checkData()) {
-            $this->loadController();
+        $this->action = $action;
+        $this->path = $path;
+        if (!empty($this->data)) {
+            if ($this->checkData()) {
+                $this->loadController();
+            }else{
+                $this->send = Errors::getError(1);
+            }
         }else{
-            $this->send = Errors::getError(1);
+            $this->loadController();
         }
     }
 
     private function checkData(){
+
         $json = json_decode($this->data,true,512,JSON_THROW_ON_ERROR);
         if (is_array($json)) {
             $this->data = $json;
@@ -26,7 +33,7 @@ class Dispatcher{
 
     private function loadController(){
         $nameController = ucfirst($this->path)."Controller";
-        $pathController = "../controllers/".$nameController.".class.php";
+        $pathController = "controllers/".$nameController.".class.php";
         if(file_exists($pathController)){
             require_once $pathController;
             $this->controller = new $nameController($this->getData());
@@ -34,11 +41,15 @@ class Dispatcher{
             if(method_exists($this->controller,$method)){
                $this->send = $this->controller->$method();
             }else{
-                $this->send = Errors::getError(1);
+                $this->send = Errors::getError(3);
             }
         }else{
-            $this->send = Errors::getError(1);
+            $this->send = Errors::getError(2);
         }
+    }
+
+    public function getData(){
+        return $this->data;
     }
 
     public function getSend(){
