@@ -1,5 +1,4 @@
 <?php
-use JSON;
 class Dispatcher extends Router{
     protected $controller;
     function __construct(){
