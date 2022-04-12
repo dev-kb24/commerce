@@ -5,6 +5,7 @@ class Dispatcher{
     private $path;
     private $data;
     private $send;
+    private $responseCode;
     function __construct($data,$action,$path){
         $this->data = $data;
         $this->action = $action;
@@ -14,6 +15,7 @@ class Dispatcher{
                 $this->loadController();
             }else{
                 $this->send = Errors::getError(1);
+                $this->responseCode = "HTTP/1.0 404 Not Found";
             }
         }else{
             $this->loadController();
@@ -40,11 +42,14 @@ class Dispatcher{
             $method = $this->action;
             if(method_exists($this->controller,$method)){
                $this->send = $this->controller->$method();
+               $this->responseCode = "HTTP/1.0 200 OK";
             }else{
                 $this->send = Errors::getError(3);
+                $this->responseCode = "HTTP/1.0 404 Not Found";
             }
         }else{
             $this->send = Errors::getError(2);
+            $this->responseCode = "HTTP/1.0 404 Not found";
         }
     }
 

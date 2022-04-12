@@ -6,14 +6,8 @@ class Router {
     private $data;
     public $dispatcher;
 
-    public function parseURL(){
-        $url = array_filter(explode('/',$_SERVER['REQUEST_URI']));
-        $this->path = $url[3];
-        if(isset($url[4])){
-            $this->action = $url[4];
-        }else{
-            $this->action = "index";
-        }
+    public function call(){
+        $this->parseUrl();
         switch($_SERVER['REQUEST_METHOD']){
             case 'GET':
                 if(isset($_GET['data'])){
@@ -27,10 +21,21 @@ class Router {
                 break;
         }
         $this->dispatcher = new Dispatcher($this->data,$this->action,$this->path);
-        $this->render($this->dispatcher->send);
+        $this->render($this->dispatcher->send,$this->dispatcher->responseCode);
     }
 
-    private function render($array){
+    private function parseUrl(){
+        $url = array_filter(explode('/',$_SERVER['REQUEST_URI']));
+        $this->path = $url[3];
+        if(isset($url[4])){
+            $this->action = $url[4];
+        }else{
+            $this->action = "index";
+        }
+    }
+
+    private function render($array,$code){
+        header($code);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($array,JSON_FORCE_OBJECT);
     }
