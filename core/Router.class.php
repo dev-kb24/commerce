@@ -31,7 +31,7 @@ class Router {
     }
 
     private function render($array){
-        echo json_encode($array);
+        echo json_encode($array,JSON_FORCE_OBJECT);
     }
 
     public function getData(){
