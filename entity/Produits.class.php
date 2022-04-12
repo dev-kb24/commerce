@@ -9,6 +9,4 @@ class Produits extends Entity{
     protected $quantity;
     protected $colors;
     protected $models;
-    
-
 }
