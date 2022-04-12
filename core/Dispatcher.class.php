@@ -36,7 +36,7 @@ class Dispatcher{
         $pathController = "controllers/".$nameController.".class.php";
         if(file_exists($pathController)){
             require_once $pathController;
-            $this->controller = new $nameController($this->getData(),$this->getPath());
+            $this->controller = new $nameController($this->data,$this->path);
             $method = $this->action;
             if(method_exists($this->controller,$method)){
                $this->send = $this->controller->$method();
@@ -48,16 +48,8 @@ class Dispatcher{
         }
     }
 
-    public function getPath(){
-        return $this->path;
-    }
-
-    public function getData(){
-        return $this->data;
-    }
-
-    public function getSend(){
-        return $this->send;
+    public function __get($property){
+        return $this->$property;
     }
 
 }

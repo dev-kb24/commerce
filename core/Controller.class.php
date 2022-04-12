@@ -22,7 +22,7 @@ class Controller {
         
     }
 
-    public function getSend(){
-        return $this->send;
+    public function __get($property){
+        return $this->$property;
     }
 }

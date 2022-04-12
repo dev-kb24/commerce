@@ -26,23 +26,16 @@ class Router {
                 }
                 break;
         }
-        $this->dispatcher = new Dispatcher($this->getData(),$this->getAction(),$this->getPath());
-        $this->render($this->dispatcher->getSend());
+        $this->dispatcher = new Dispatcher($this->data,$this->action,$this->path);
+        $this->render($this->dispatcher->send);
     }
 
     private function render($array){
+        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($array,JSON_FORCE_OBJECT);
     }
 
-    public function getData(){
-        return $this->data;
-    }
-
-    public function getPath(){
-        return $this->path;
-    }
-
-    public function getAction(){
-        return $this->action;
-    }
+   public function __get($property){
+       return $this->$property;
+   }
 }
