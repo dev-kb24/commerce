@@ -6,9 +6,12 @@ class ListerProduitsController extends Controller{
         $this->loadModel();
         require_once "entity/Produits.class.php";
         $find = $this->model->findAll();
-        foreach ($find as $value) {
-            $produit = new Produits($value);
-            array_push($this->produits,$produit->addProduit()); 
+        foreach ($find as $entity) {
+            $produit = new Produits();
+            foreach($entity as $prop => $val){
+                $produit->$prop = $val;
+            }
+            array_push($this->produits,$produit->add()); 
         }
         return $this->produits;
     }
