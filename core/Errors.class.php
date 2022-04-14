@@ -21,6 +21,12 @@ class Errors{
                     "error"=>"La méthode n'existe pas!"
                 ];
                 break;
+
+            case 4:
+                return [
+                    "error"=>"L'email n'est pas valide"
+                ];
+                break;
             
             default:
                 return [
