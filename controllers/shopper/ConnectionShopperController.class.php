@@ -1,6 +1,6 @@
 <?php  
 
-class ConnexionShopperController extends Auth{
+class ConnectionShopperController extends Auth{
     public function index(){
         $this->loadModel();
         require_once "entity/Shopper.class.php";

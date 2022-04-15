@@ -1,13 +1,13 @@
 <?php
 
-class ListerProduitsController extends Controller{
+class ListProductController extends Controller{
     protected $produits = [];
     public function index(){
         $this->loadModel();
-        require_once "entity/Produits.class.php";
+        require_once "entity/Product.class.php";
         $find = $this->model->findAll();
         foreach ($find as $entity) {
-            $produit = new Produits();
+            $produit = new Product();
             array_push($this->produits,$produit->add($entity));
         }
         return $this->produits;
@@ -15,11 +15,11 @@ class ListerProduitsController extends Controller{
 
     public function findById(){
         $this->loadModel();
-        require_once "entity/Produits.class.php";
+        require_once "entity/Product.class.php";
         $find = $this->model->findById($this->data);
         foreach ($find as $entity) {
-            $produit = new Produits();
-            array_push($this->produits,$produit->add());
+            $produit = new Product();
+            array_push($this->produits,$produit->add($entity));
         }
         return $this->produits;
     }

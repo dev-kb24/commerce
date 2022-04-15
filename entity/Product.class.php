@@ -1,7 +1,7 @@
 <?php
 
-class Produits extends Entity{
-    public $id_produit;
+class Product extends Entity{
+    public $id_product;
     public $libelle;
     public $content;
     public $prixBase;

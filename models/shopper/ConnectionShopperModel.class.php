@@ -1,6 +1,6 @@
 <?php
 
-class ConnexionShopperModel extends Model{
+class ConnectionShopperModel extends Model{
 
     public function findShopper($email){
         $sqlQuery = 'SELECT * FROM shopper where email = :email';
