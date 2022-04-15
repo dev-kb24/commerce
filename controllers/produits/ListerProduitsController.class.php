@@ -19,10 +19,7 @@ class ListerProduitsController extends Controller{
         $find = $this->model->findById($this->data);
         foreach ($find as $entity) {
             $produit = new Produits();
-            foreach($entity as $prop => $val){
-                $produit->$prop = $val;
-            }
-            array_push($this->produits,$produit->add()); 
+            array_push($this->produits,$produit->add());
         }
         return $this->produits;
     }

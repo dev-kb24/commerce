@@ -8,10 +8,7 @@ class ListerShopController extends Controller{
         $find = $this->model->findAll();
         foreach ($find as $entity) {
             $shop = new Shop();
-            foreach($entity as $prop => $val){
-                $shop->$prop = $val;
-            }
-            array_push($this->shops,$shop->add()); 
+            array_push($this->shops,$shop->add($entity));
         }
         return $this->shops;
     }

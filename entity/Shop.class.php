@@ -1,8 +1,8 @@
 <?php  
 
 class Shop extends Entity{
-    protected $id_shop;
-    protected $nameShop;
-    protected $adresse;
-    protected $suivi;
+    public $id_shop;
+    public $nameShop;
+    public $adresse;
+    public $suivi;
 }

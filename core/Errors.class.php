@@ -27,6 +27,12 @@ class Errors{
                     "error"=>"L'email n'est pas valide"
                 ];
                 break;
+
+            case 5:
+                return [
+                    "error"=>"Le password n'est pas correct"
+                ];
+                 break;
             
             default:
                 return [

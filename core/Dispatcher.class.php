@@ -1,6 +1,7 @@
 <?php
 class Dispatcher{
     private $controller;
+    private $folder;
     private $action;
     private $path;
     private $data;
@@ -34,11 +35,12 @@ class Dispatcher{
     }
 
     private function loadController(){
+        $this->addFolder();
         $nameController = ucfirst($this->path)."Controller";
-        $pathController = "controllers/".$nameController.".class.php";
+        $pathController = "controllers/".$this->folder."/".$nameController.".class.php";
         if(file_exists($pathController)){
             require_once $pathController;
-            $this->controller = new $nameController($this->data,$this->path);
+            $this->controller = new $nameController($this->data,$this->path,$this->folder);
             $method = $this->action;
             if(method_exists($this->controller,$method)){
                $this->send = $this->controller->$method();
@@ -51,6 +53,11 @@ class Dispatcher{
             $this->send = Errors::getError(2);
             $this->responseCode = "HTTP/1.0 404 Not found";
         }
+    }
+
+    private function addFolder(){
+        $parts = preg_split('/(?=[A-Z])/', $this->path);
+        $this->folder = strtolower($parts[1]);
     }
 
     public function __get($property){

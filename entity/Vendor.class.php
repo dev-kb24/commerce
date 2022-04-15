@@ -1,9 +1,9 @@
 <?php
 
 class Vendor extends Entity{
-    protected $id_vendor;
-    protected $society;
-    protected $team;
-    protected $num_identity;
-    protected $id_shop;
+    public $id_vendor;
+    public $society;
+    public $team;
+    public $num_identity;
+    public $id_shop;
 }
