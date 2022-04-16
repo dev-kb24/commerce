@@ -14,13 +14,4 @@ class RegisterShopperModel extends Model{
         ]);
         return $this->db->lastInsertId();
     }
-
-    public function findById($id){
-        $sqlQuery = 'SELECT * FROM shopper where id_shopper = :id_shopper';
-        $recipesStatement = $this->db->prepare($sqlQuery);
-        $recipesStatement->execute([
-            "id_shopper"=>$id
-        ]);
-        return $recipesStatement->fetch(PDO::FETCH_OBJ);
-    }
 }

@@ -19,7 +19,7 @@ class Auth extends Controller {
     }
 
     protected function checkFirstName(){
-        if(preg_match('`^[a-zA-Z \'\-\.]+$`', $this->data['firstName']) && strlen($this->data['firstName']) >= 1 && strlen($this->data['firstName']) <= 50){
+        if(preg_match('/^(?=.*[A-Za-z \'\-\.])[^0-9]+$/', $this->data['firstName']) && strlen($this->data['firstName']) >= 1 && strlen($this->data['firstName']) <= 50){
             return true;
         }else{
             return false;
@@ -27,7 +27,7 @@ class Auth extends Controller {
     }
 
     protected function checkLastName(){
-        if(preg_match('^[a-zA-Z \'\-\.]+$', $this->data['lastName']) && strlen($this->data['lastName']) >= 1 && strlen($this->data['lastName']) <= 50){
+        if(preg_match('/^(?=.*[A-Za-z \'\-\.])[^0-9]+$/', $this->data['lastName']) && strlen($this->data['lastName']) >= 1 && strlen($this->data['lastName']) <= 50){
             return true;
         }else{
             return false;
@@ -35,23 +35,27 @@ class Auth extends Controller {
     }
 
     protected function checkAdresse(){
-        if(preg_match('^[0-9]+[0-9a-zA-Z \'\-]+$', $this->data['adresse']) && strlen($this->data['adresse']) >= 1 && strlen($this->data['adresse']) <= 150){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    protected function checkCP(){
-        if(preg_match('^[a-zA-Z \'\-\.]+$', $this->data['ville']) && strlen($this->data['ville']) >= 1 && strlen($this->data['ville']) <= 100){
-            return true;
+        if(preg_match('/^[0-9]+[0-9a-zA-Z \'\-]+$/', $this->data['adresse']) && strlen($this->data['adresse']) >= 1 && strlen($this->data['adresse']) <= 150){
+            if(isset($this->data['codePostal']) && isset($this->data['ville'])){
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
     }
 
     protected function checkVille(){
-        if(preg_match('[0-9]{5}', $this->data['cp'])){
+        if(preg_match('/^[a-zA-Z \'\-\.]+$/', $this->data['ville']) && strlen($this->data['ville']) >= 1 && strlen($this->data['ville']) <= 100){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    protected function checkCodePostal(){
+        if(preg_match('/[0-9]{5}/', $this->data['codePostal'])){
             return true;
         }else{
             return false;
@@ -59,7 +63,7 @@ class Auth extends Controller {
     }
 
     protected function checkTel(){
-        if(preg_match('^[0-9]+$',$this->data['tel']) && strlen($this->data['tel']) != 10){
+        if(preg_match('/[0-9]{10}/',$this->data['tel'])){
             return true;
         }else{
             return false;

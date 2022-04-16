@@ -28,4 +28,13 @@ class Model{
       }
    }
 
+   public function findByID($id,$from){
+      $sqlQuery = 'SELECT * FROM '.$from.' where id_'.$from.' = :id';
+      $recipesStatement = $this->db->prepare($sqlQuery);
+      $recipesStatement->execute([
+         "id"=>$id
+      ]);
+      return $recipesStatement->fetch(PDO::FETCH_OBJ);
+   }
+
 }

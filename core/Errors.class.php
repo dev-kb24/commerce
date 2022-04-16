@@ -33,6 +33,24 @@ class Errors{
                     "error"=>"Le password n'est pas correct"
                 ];
                  break;
+
+            case 6:
+                return [
+                    "error"=>"Le compte n'a pas été supprimé !"
+                ];
+                break;
+
+             case 7:
+                return [
+                    "error"=>"Les données utilisateur ne sont pas correct"
+                ];
+                break;
+
+            case 8:
+                return [
+                    "error"=>"Aucunes modifications !"
+                ];
+                break;
             
             default:
                 return [

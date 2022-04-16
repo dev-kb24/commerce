@@ -8,7 +8,7 @@ class RegisterShopperController extends Auth{
         if($this->checkEmail()){
             if($this->checkPassword()){
                 $lastId = $this->model->addShopper($this->data);
-                $entity = $this->model->findById($lastId);
+                $entity = $this->model->findById($lastId,"shopper");
                 $shopper = new Shopper();
                 return $shopper->add($entity);
             }else{
