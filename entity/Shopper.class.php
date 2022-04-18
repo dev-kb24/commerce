@@ -10,4 +10,5 @@ class Shopper extends Entity{
     public $password;
     public $role;
     public $adresse;
+    public $favoris;
 }

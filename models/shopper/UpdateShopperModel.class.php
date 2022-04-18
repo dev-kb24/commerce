@@ -15,6 +15,7 @@ class UpdateShopperModel extends Model{
         }
         $sqlQuery .= implode(",",$array).$sqlAdresse." WHERE id_shopper = :id_shopper;";
         $recipesStatement = $this->db->prepare($sqlQuery);
+        $data['favoris'] = json_encode($data['favoris']);
         $recipesStatement->execute($data);
         if($recipesStatement->rowCount() > 0){
             return true;
