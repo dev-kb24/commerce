@@ -26,6 +26,14 @@ class Auth extends Controller {
         }
     }
 
+    protected function checkSociety(){
+        if(preg_match('/^(?=.*[A-Za-z \'\-\.])[^0-9]+$/', $this->data['society']) && strlen($this->data['society']) >= 1 && strlen($this->data['society']) <= 50){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     protected function checkLastName(){
         if(preg_match('/^(?=.*[A-Za-z \'\-\.])[^0-9]+$/', $this->data['lastName']) && strlen($this->data['lastName']) >= 1 && strlen($this->data['lastName']) <= 50){
             return true;

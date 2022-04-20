@@ -3,7 +3,7 @@
 class Vendor extends Entity{
     public $id_vendor;
     public $society;
-    public $team;
-    public $num_identity;
+    public $email;
+    public $password;
     public $id_shop;
 }
